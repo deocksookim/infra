@@ -24,3 +24,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name : check pwd
+      run: pwd
+    - name : check result
+      run: ls
