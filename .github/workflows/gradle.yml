@@ -28,3 +28,5 @@ jobs:
       run: pwd
     - name : check result
       run: ls
+    - name : upload build file to EC2 Instance
+      run: scp ./build/libs/* ubuntu@52.78.128.252:~
