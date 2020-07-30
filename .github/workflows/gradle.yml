@@ -33,4 +33,4 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
     - name: Upload To S3
-      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://jemat/$PROJECT_NAME/$GITHUB_SHA.zip
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://deocks-test/$PROJECT_NAME/$GITHUB_SHA.zip
