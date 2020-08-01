@@ -5,14 +5,7 @@ name: blue-green
 
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        description: 'Person to greet'
-        required: 
-        default: 'Mona the Octocat'
-      home:
-        description: 'location'
-        required: false
+
 
 env:
   BUCKET: deocks-test
