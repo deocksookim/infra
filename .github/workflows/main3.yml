@@ -48,4 +48,4 @@ jobs:
     - name: check s3 bucket
       run: |
         variable=$(aws s3 ls s3://$BUCKET)
-        echo ${{ contains($variable, 'latest.zip') }}
+        echo ${{ contains(variable, 'latest.zip') }}
