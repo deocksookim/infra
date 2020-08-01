@@ -4,7 +4,9 @@
 name: blue-green
 
 on:
-  workflow_dispatch:
+  check_run:
+    types: [rerequested, requested_action]
+
 
 
 env:
