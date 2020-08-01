@@ -46,5 +46,4 @@ jobs:
       if: ${{ env.HAVING_LATEST }}
       run: echo 'yes!!'
     - name: check s3 bucket
-      if: ${{ aws s3 ls s3://$BUCKET | grep latest.zip -c }}
-      run: echo 'yes!!!!!'
+      run: echo "::set-env name=HAVING_LATEST::${{ aws s3 ls s3://$BUCKET | grep latest.zip -c }}"
