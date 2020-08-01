@@ -49,4 +49,4 @@ jobs:
       id: aaaa
       run: |
         variable=$(aws s3 ls s3://$BUCKET)
-        echo ${{ contains(jobs.build.steps.aaaa.variable, 'latest.zip') }}
+        echo ${{ contains(aaaa.variable, 'latest.zip') }}
