@@ -23,8 +23,8 @@ on:
 
 env:
   BUCKET: deocks-test
-  LATEST_BUILD_ARTIFACT: "latest.zip"
-  BACKUP_BUILD_ARTIFACT: "backup.zip"
+  LATEST_BUILD_ARTIFACT: 'latest.zip'
+  BACKUP_BUILD_ARTIFACT: 'backup.zip'
 
 jobs:
   build:
