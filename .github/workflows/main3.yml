@@ -54,10 +54,14 @@ jobs:
       env: 
         bucket_items: $(aws s3 ls s3://$BUCKET)
       run: | 
+        echo 'bucket_items'
         echo ${{ steps.aaaa.env.bucket_items }}
-        having_latest=${{ contains(steps.aaaa.env.bucket_items, env.LATEST_BUILD_ARTIFACT) }}
+        having_latest=${{ contains($(aws s3 ls s3://$BUCKET), env.LATEST_BUILD_ARTIFACT) }}
+        echo 'having latest'
         echo $having_latest
         echo ::set-output name=having::having_latest
+        echo 'having'
+        echo steps.aaaa.outputs.having
     - name: Backup last build artifacts
       if: ${{ steps.aaaa.outputs.having }}
       run: aws s3 mv s3://$BUCKET/$LATEST_BUILD_ARTIFACT s3://$BUCKET/$BACKUP_BUILD_ARTIFACT
