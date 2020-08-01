@@ -24,6 +24,7 @@ on:
 env:
   BUCKET: deocks-test
   HAVING_LATEST: true
+  BUCKET_ITEMS: ""
 
 jobs:
   build:
@@ -48,5 +49,5 @@ jobs:
     - name: check s3 bucket
       id: aaaa
       run: |
-        variable=$(aws s3 ls s3://$BUCKET)
-        echo ${{ contains(aaaa.variable, 'latest.zip') }}
+        BUCKET_ITEMS=$(aws s3 ls s3://$BUCKET)
+        echo ${{ contains(env.BUCKET_ITEMS, 'latest.zip') }}
