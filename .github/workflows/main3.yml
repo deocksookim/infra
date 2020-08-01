@@ -23,7 +23,8 @@ on:
 
 env:
   BUCKET: deocks-test
-  LATEST_BUILD_ARTIFACT: 'latest.zip'
+  LATEST_BUILD_ARTIFACT: 'latest-v1.zip'
+  LATEST_REGEX: 'latest-*'
   BACKUP_BUILD_ARTIFACT: 'backup.zip'
 
 jobs:
@@ -62,6 +63,6 @@ jobs:
       run: echo ${{ steps.check_s3.outputs.exists }}
     - name: Backup last build artifacts
       if: steps.check_s3.outputs.exists == 'true'
-      run: aws s3 mv s3://$BUCKET/$LATEST_BUILD_ARTIFACT s3://$BUCKET/$BACKUP_BUILD_ARTIFACT
+      run: aws s3 -recursive mv s3://$BUCKET/$LATEST_REGEX s3://$BUCKET/$BACKUP_BUILD_ARTIFACT
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./$LATEST_BUILD_ARTIFACT s3://$BUCKET/$LATEST_BUILD_ARTIFACT
