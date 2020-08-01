@@ -49,10 +49,11 @@ jobs:
       if: ${{ env.HAVING_LATEST }}
       run: echo 'yes!!'
     - name: check s3 bucket has latest build result
+      id: aaaa
       run: | 
         BUCKET_ITEMS=$(aws s3 ls s3://$BUCKET)
-        HAVING_LATEST=${{ contains(env.BUCKET_ITEMS, env.LATEST_BUILD_ARTIFACT) }}
-        echo $HAVING_LATEST
+        have_latest=${{ contains(steps.aaaa.BUCKET_ITEMS, env.LATEST_BUILD_ARTIFACT) }}
+        echo have_latest
     - name: Backup last build artifacts
-      if: ${{ env.HAVING_LATEST }}
+      if: ${{ steps.aaaa.have_latest }}
       run: aws s3 mv s3://$BUCKET/$LATEST_BUILD_ARTIFACT s3://$BUCKET/$BACKUP_BUILD_ARTIFACT
