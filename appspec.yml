@@ -1,0 +1,6 @@
+version: 0.0
+os: linux
+files:
+  - sources: /
+    destination: /home/ec2-user/artifact
+    overwrite: yes
