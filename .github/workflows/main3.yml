@@ -25,6 +25,8 @@ env:
   BUCKET: deocks-test
   HAVING_LATEST: true
   BUCKET_ITEMS: ""
+  LATEST_BUILD_ARTIFACT: "latest.zip"
+  BACKUP_BUILD_ARTIFACT: "backup.zip"
 
 jobs:
   build:
@@ -46,8 +48,11 @@ jobs:
     - name: Check if there is latest
       if: ${{ env.HAVING_LATEST }}
       run: echo 'yes!!'
-    - name: check s3 bucket
-      id: aaaa
-      run: |
+    - name: check s3 bucket has latest build result
+      run: | 
         BUCKET_ITEMS=$(aws s3 ls s3://$BUCKET)
-        echo ${{ contains(env.BUCKET_ITEMS, 'latest.zip') }}
+        HAVING_LATEST=${{ contains(env.BUCKET_ITEMS, env.LATEST_BUILD_ARTIFACT) }}
+        echo $HAVING_LATEST
+    - name: Backup last build artifacts
+      if: ${{ HAVING_LATEST }}
+      run: aws s3 mv s3://$BUCKET/$LATEST_BUILD_ARTIFACT s3://$BUCKET/$BACKUP_BUILD_ARTIFACT
