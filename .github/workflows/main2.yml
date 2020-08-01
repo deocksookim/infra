@@ -4,6 +4,14 @@
 name: main
 
 on:
+  workflow_dispatch:
+    inputs: 
+      inputA: 
+        description: 'input A'
+        required: false
+      inputB: 
+        description: 'input B'
+        required: false
   repository_dispatch:
     inputs: 
       inputA: 
