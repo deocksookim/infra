@@ -53,11 +53,13 @@ jobs:
       id: aaaa
       run: | 
         bucket_items=$(aws s3 ls s3://$BUCKET)
-        echo ${{ steps.aaaa.bucket_items }}
-        having_latest=${{ contains(steps.aaaa.bucket_items, env.LATEST_BUILD_ARTIFACT) }}
+        echo ::set-output name=items::$bucket_items
+        echo ${{ steps.aaaa.outputs.items }}
+        having_latest=${{ contains(steps.aaaa.outputs.items, env.LATEST_BUILD_ARTIFACT) }}
         echo $having_latest
+        echo ::set-output name=action_fruit::strawberry
     - name: Backup last build artifacts
-      if: ${{ steps.aaaa.having_latest }}
+      if: ${{ steps.aaaa.outputs.having_latest }}
       run: aws s3 mv s3://$BUCKET/$LATEST_BUILD_ARTIFACT s3://$BUCKET/$BACKUP_BUILD_ARTIFACT
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./$LATEST_BUILD_ARTIFACT s3://$BUCKET/$LATEST_BUILD_ARTIFACT
