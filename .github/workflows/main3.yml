@@ -46,4 +46,5 @@ jobs:
       if: ${{ env.HAVING_LATEST }}
       run: echo 'yes!!'
     - name: check s3 bucket
-      run: echo ${{aws s3 ls s3://$BUCKET | grep latest.zip -c }}
+      if: ${{ aws s3 ls s3://$BUCKET | grep latest.zip -c }}
+      run: echo 'yes!!!!!'
