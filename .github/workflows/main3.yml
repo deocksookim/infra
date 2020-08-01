@@ -23,8 +23,6 @@ on:
 
 env:
   BUCKET: deocks-test
-  HAVING_LATEST: true
-  BUCKET_ITEMS: ""
   LATEST_BUILD_ARTIFACT: "latest.zip"
   BACKUP_BUILD_ARTIFACT: "backup.zip"
 
@@ -39,6 +37,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.11
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
+    - name: Zip Artifacts
+      run: zip -qq -r ./$LATEST_BUILD_ARTIFACT .
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -51,9 +55,10 @@ jobs:
     - name: check s3 bucket has latest build result
       id: aaaa
       run: | 
-        BUCKET_ITEMS=$(aws s3 ls s3://$BUCKET)
-        have_latest=${{ contains(steps.aaaa.BUCKET_ITEMS, env.LATEST_BUILD_ARTIFACT) }}
-        echo have_latest
+        bucket_items=$(aws s3 ls s3://$BUCKET)
+        having_latest=${{ contains(steps.aaaa.bucket_items, env.LATEST_BUILD_ARTIFACT) }}
     - name: Backup last build artifacts
-      if: ${{ steps.aaaa.have_latest }}
+      if: ${{ steps.aaaa.having_latest }}
       run: aws s3 mv s3://$BUCKET/$LATEST_BUILD_ARTIFACT s3://$BUCKET/$BACKUP_BUILD_ARTIFACT
+    - name: Upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./$LATEST_BUILD_ARTIFACT s3://$BUCKET/$LATEST_BUILD_ARTIFACT
