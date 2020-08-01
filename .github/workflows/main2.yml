@@ -23,7 +23,7 @@ on:
 
 env:
   BUCKET: deocks-test
-  HAVING_LATEST: false
+  HAVING_LATEST: true
 
 jobs:
   build:
@@ -49,8 +49,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
     - name: Check if there is latest
-      run: |
-        $HAVING_LATEST=$(aws s3 ls s3://$BUCKET/latest.zip)
+      if: $HAVING_LATEST
+      run: echo 'yes!!'
+    - name: check s3 bucket
+      run: aws s3 ls s3://$BUCKET/latest.zip
     - name: Backup Last Deployment
       run: aws s3 mv s3://$BUCKET/latest.zip s3://$BUCKET/backup.zip
     - name: Upload to S3
