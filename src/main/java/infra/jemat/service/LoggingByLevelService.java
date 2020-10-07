@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class LoggingByLevelService {
-
     public String logInfoLevelLog() {
         log.info("info level");
         return "info";
@@ -18,12 +17,12 @@ public class LoggingByLevelService {
     }
 
     public String logTraceLevelLog() {
-        log.trace("trace");
+        log.trace("trace level");
         return "trace";
     }
 
     public String logDebugLevelLog() {
-        log.debug("debug");
+        log.debug("debug level");
         return "debug";
     }
 

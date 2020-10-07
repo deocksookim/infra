@@ -29,7 +29,7 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-}
+    compile group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.4'}
 
 test {
     useJUnitPlatform()
