@@ -46,9 +46,7 @@
         <discardingThreshold>5</discardingThreshold>
         <neverBlock>true</neverBlock>
         <includeCallerData>false</includeCallerData>
-        <appender-ref ref="FILE"/>
-    </appender>
-
+        <appender-ref ref="FILE"/> </appender>
     <logger name="infra.jemat.service.LoggingByLevelService" level="DEBUG" />
 
     <springProfile name="local">
@@ -58,7 +56,7 @@
     </springProfile>
 
     <springProfile name="prod">
-        <property name="LOG_PATH" value="/Users/ec2-user/kiworkshop/logs/spring/"/>
+        <property name="LOG_PATH" value="/home/ec2-user/kiworkshop/logs/spring/"/>
         <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
         <root level="info">
