@@ -58,6 +58,7 @@
     </springProfile>
 
     <springProfile name="prod">
+        <property name="LOG_PATH" value="/Users/ec2-user/kiworkshop/logs/spring/"/>
         <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
         <root level="info">
