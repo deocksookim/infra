@@ -1,5 +1,5 @@
 <configuration>
-    <property name="LOG_PATH" value="/Users/deocks/kiworkshop/logs/spring/"/>
+    <property name="LOG_PATH" value="/home/ec2-user/kiworkshop/logs/spring/"/>
 
 <!--    console appender-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
